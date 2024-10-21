@@ -83,9 +83,9 @@ const Navbar = () => {
           </div>
           <div className="flex-grow flex flex-col items-center justify-center space-y-8 text-2xl">
             <MobileNavItem href="/" label="Home" onClick={() => setIsMenuOpen(false)} />
-            <MobileNavItem href="/courses" label="Courses" hasDropdown onClick={() => setIsMenuOpen(false)} />
-            <MobileNavItem href="/about" label="About Us" onClick={() => setIsMenuOpen(false)} />
-            <MobileNavItem href="/contact" label="Contact" onClick={() => setIsMenuOpen(false)} />
+            <MobileNavItem href="/Courses" label="Courses" hasDropdown onClick={() => setIsMenuOpen(false)} />
+            <MobileNavItem href="/AboutUs" label="About Us" onClick={() => setIsMenuOpen(false)} />
+            <MobileNavItem href="/ContactUs" label="Contact" onClick={() => setIsMenuOpen(false)} />
             <div className="pt-8 flex flex-col space-y-4 w-64">
               <Link to="/login" className="text-white px-6 py-3 rounded-md transition-colors duration-300 text-center bg-font hover:text-white">
                 Log In
