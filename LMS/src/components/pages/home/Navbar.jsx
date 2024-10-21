@@ -29,7 +29,7 @@ const Navbar = () => {
             <NavItem href="/" label="Home" />
             <NavItem href="/Courses" label="Courses" hasDropdown />
             <NavItem href="/AboutUs" label="About Us" />
-            <NavItem href="/contact" label="Contact" />
+            <NavItem href="/ContactUs" label="Contact" />
           </div>
 
           {/* Right Section */}
