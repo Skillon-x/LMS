@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Search, ChevronDown, Star, Users, Clock, Grid, List, Filter } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const CourseFilter = ({ label, options, value, onChange }) => {
   return (
@@ -24,12 +23,7 @@ const CourseFilter = ({ label, options, value, onChange }) => {
 
 const CourseCard = ({ course, isListView }) => {
   return (
-    <motion.div 
-      layout
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.3 }}
+    <div 
       className={`bg-white rounded-xl shadow-lg overflow-hidden ${isListView ? 'flex' : 'flex flex-col'} hover:shadow-xl transition duration-300 ease-in-out`}
     >
       <img 
@@ -62,7 +56,7 @@ const CourseCard = ({ course, isListView }) => {
           </button>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -81,6 +75,7 @@ const CoursesPage = () => {
   useEffect(() => {
     // Fetch courses from API (using dummy data for now)
     const dummyCourses = [
+      // All 10 courses as before
       {
         id: 1,
         title: 'Introduction to Quranic Arabic',
@@ -111,6 +106,7 @@ const CoursesPage = () => {
         level: 'Advanced',
         type: 'Live'
       },
+      // Add the rest of the courses
       {
         id: 3,
         title: 'Fundamentals of Islamic Jurisprudence',
@@ -255,7 +251,7 @@ const CoursesPage = () => {
         <div className="bg-white p-6 rounded-xl shadow-md mb-8">
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <div className="flex-grow">
-              <div className="relative ">
+              <div className="relative">
                 <input
                   type="text"
                   placeholder="Search for courses"
@@ -277,25 +273,16 @@ const CoursesPage = () => {
             </button>
           </div>
           
-          <AnimatePresence>
-            {showFilters && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                  <CourseFilter label="Category" options={['Quran Studies', 'Hadith Studies', 'Fiqh', 'Islamic History', 'Language', 'Islamic Culture']} value={category} onChange={setCategory} />
-                  <CourseFilter label="Level" options={['Beginner', 'Intermediate', 'Advanced']} value={level} onChange={setLevel} />
-                  <CourseFilter label="Price" options={['Free', 'Paid']} value={price} onChange={setPrice} />
-                  <CourseFilter label="Duration" options={['0-4 weeks', '4-8 weeks', '8+ weeks']} value={duration} onChange={setDuration} />
-                  <CourseFilter label="Rating" options={['4.5+', '4.0+', '3.5+']} value={rating} onChange={setRating} />
-                  <CourseFilter label="Type" options={['Live', 'Recorded']} value={type} onChange={setType} />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {showFilters && (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              <CourseFilter label="Category" options={['Quran Studies', 'Hadith Studies', 'Fiqh', 'Islamic History', 'Language', 'Islamic Culture']} value={category} onChange={setCategory} />
+              <CourseFilter label="Level" options={['Beginner', 'Intermediate', 'Advanced']} value={level} onChange={setLevel} />
+              <CourseFilter label="Price" options={['Free', 'Paid']} value={price} onChange={setPrice} />
+              <CourseFilter label="Duration" options={['0-4 weeks', '4-8 weeks', '8+ weeks']} value={duration} onChange={setDuration} />
+              <CourseFilter label="Rating" options={['4.5+', '4.0+', '3.5+']} value={rating} onChange={setRating} />
+              <CourseFilter label="Type" options={['Live', 'Recorded']} value={type} onChange={setType} />
+            </div>
+          )}
         </div>
 
         <div className="flex items-center justify-between mb-6">
@@ -316,25 +303,16 @@ const CoursesPage = () => {
           </div>
         </div>
 
-        <motion.div 
-          layout
-          className={`grid gap-6 ${isListView ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}
-        >
-          <AnimatePresence>
-            {filteredCourses.map((course) => (
-              <CourseCard key={course.id} course={course} isListView={isListView} />
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        <div className={`grid gap-6 ${isListView ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
+          {filteredCourses.map((course) => (
+            <CourseCard key={course.id} course={course} isListView={isListView} />
+          ))}
+        </div>
 
         {filteredCourses.length === 0 && (
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center text-gray-600 mt-12 text-lg"
-          >
+          <p className="text-center text-gray-600 mt-12 text-lg">
             No courses found matching your criteria. Try adjusting your filters or search terms.
-          </motion.p>
+          </p>
         )}
       </div>
     </div>
